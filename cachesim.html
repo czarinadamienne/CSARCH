@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cache Simulator (Block-set-associative/MRU)</title>
+<link rel="stylesheet" href="cachesim.css"> 
+</head>
+<body>
+    
+<div class="container">
+
+    <div class="text">
+        <h1>Cache Simulator (Block-set-associative/MRU)</h1>
+    </div>
+
+    <div class="input">
+        <label for="block">Block size: </label>
+        <input type="number" id="block" required>
+        <br>
+        <label for="set">Set size: </label>
+        <input type="number" id="set" required>
+        <br>
+        <label for="mm">MM memory size: </label>
+        <input type="number" id="mmn" required>
+        <select id="mm">
+            <option value="bmm">Block</option>
+            <option value="wmm">Word</option>
+        </select>
+        <br>
+        <label>Cache memory size: </label>
+        <input type="number" id="cmn" required>
+        <select id="cm">
+            <option value="cmb">Block</option>
+            <option value="cmw">Word</option>
+        </select>
+        <br>
+        <label>Program flow (add space between each number): </label>
+        <input type="text" id="pmn" required>
+        <select id="pf">
+            <option value="pfb">Block</option>
+            <option value="pfw">Word</option>
+        </select>
+        <br>
+        <label>Cache access time: </label>
+        <input type="number" id="catn" required>
+        <select id="cat">
+            <option value="ns">ns</option>
+        </select>
+        <br>
+        <label>Memory access time: </label>
+        <input type="number" id="matn" required>
+        <select id="mat">
+            <option value="ns">ns</option>
+        </select> 
+        <br>
+        <input type="submit" value="Submit" id="sub">
+    </div>
+
+</div>
+<script src="cachesim.js"></script>
+</body>
+</html>
