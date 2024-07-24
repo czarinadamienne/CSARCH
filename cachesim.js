@@ -60,7 +60,15 @@ document.getElementById("sub").onclick = function(event){
     }
 
     if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){
-        alertError("Inputs should be a power of 2!"); //make this appear on the front instead
+        alertError("Inputs should be a power of 2!"); 
+        document.getElementById("block").value = '';
+        document.getElementById("set").value = '';
+        document.getElementById("mmn").value = '';
+        return;
+    }
+
+    if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
+        alertError("Inputs should be greater than 0!"); 
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -68,25 +76,26 @@ document.getElementById("sub").onclick = function(event){
         return;
     }
 
-    else if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
-        alertError("Inputs should be greater than 0!"); //make this appear on the front instead
-        document.getElementById("block").value = '';
-        document.getElementById("set").value = '';
-        document.getElementById("mmn").value = '';
-        document.getElementById("cmn").value = '';
-        return;
-    }
-
-    else if(cmn % set || cmn < set){
-        alertError("Cache size should be greater than and divisible by set size!"); //make this appear on the front instead
+    if(cmn % set || cmn < set){
+        alertError("Cache size should be greater than and divisible by set size!");
         document.getElementById("set").value = '';
         document.getElementById("cmn").value = '';
         return;
     }
 
-    
-    else{
-        pfnarr = pmn.split(' ').map(Number);//to store in array
+    pfnarr = pmn.split(' ').map(Number); // to store in array
+
+    for (let i = 0; i < pfnarr.length; i++) {
+        let btest = (mm === "bmm") ? mmn * block : mmn;
+
+        if (btest < pfnarr[i]) {
+            alertError("Program flow value should be less than or equal to the MM memory size!");
+            document.getElementById("pmn").value = '';
+            pfnarr = [];
+            return;
+        }
+    }
+
         let inds = 0;
         let word;
         let fset;
@@ -96,6 +105,10 @@ document.getElementById("sub").onclick = function(event){
         let s;
         let addnum = []; //stores tag and set
         let pfpairs = []; //to store value and its set
+
+        if(block * set !== cmn){
+            set = cmn / set;
+        }
 
         //to check if word or block
         if (pf === "pfw"){
@@ -108,10 +121,10 @@ document.getElementById("sub").onclick = function(event){
 
             word = Math.log2(block);
 
-            if(mm === "wmm"){ //not sure
+            if(mm === "wmm"){
                 tag = Math.log2(mmn) - fset - word;
             }
-            else if(mm === "bmm"){
+            else if(mm === "bmm"){ 
                 tag = Math.log2((mmn * block)) - fset - word;
             }
             addnum.push(tag);
@@ -131,6 +144,7 @@ document.getElementById("sub").onclick = function(event){
                 return [num, setNumber];
             });
         }
+        
         
         let j;
         let hit = 0;
@@ -196,11 +210,6 @@ document.getElementById("sub").onclick = function(event){
         
     
         populateTable(cache); //to display table values
-
-    };
-
-    //check the memory size, cache memory calculations
-    //do smthn about the cache size (cuz u gotta follow dat)
 
     document.getElementById("error-message").innerText = '';
 
