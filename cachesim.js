@@ -1,10 +1,5 @@
-//function to get exponent of power of 2
-function powerTwo(n) {
-    if(n <= 0 || (n & (n - 1)) !== 0) {
-        throw new Error("Invalid input, please input power of 2.")
-    }
-    
-    return Math.log2(n);
+function pow2(x){
+    return x > 0 && (x & (x - 1)) === 0;
 }
 
 function convbin(dec, bits){ //covert to binary
@@ -60,106 +55,143 @@ document.getElementById("sub").onclick = function(event){
     pmn = document.getElementById("pmn").value;
     pf = document.getElementById("pf").value;
     
-    pfnarr = pmn.split(' ').map(Number);//to store in array
-    let inds = 0;
-    let word;
-    let fset;
-    let tag;
-    let addval;
-    let totb;
-    let s;
-    let addnum = []; //stores tag and set
-    let pfpairs = []; //to store value and its set
+    if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){
+        alert("inputs should be a power of 2");
+        document.getElementById("block").value = '';
+        document.getElementById("set").value = '';
+        document.getElementById("mmn").value = '';
+        document.getElementById("cmn").value = '';
+        return;
+    }
 
-    //to check if word or block
-    if (pf === "pfw"){
-        if(cm === "cmb"){
-            fset = powerTwo((cmn / set));
-        }
-        else if(cm === "cmw"){
-            fset = powerTwo(((cmn / block) / set));
-        }
+    else if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
+        alert("inputs should be greater than 0");
+        document.getElementById("block").value = '';
+        document.getElementById("set").value = '';
+        document.getElementById("mmn").value = '';
+        document.getElementById("cmn").value = '';
+        return;
+    }
 
-        word = powerTwo(block);
+    else if(cmn % set || cmn < set){
+        alert("cache size should be greater than and divisible by set size");
+        document.getElementById("set").value = '';
+        document.getElementById("cmn").value = '';
+        return;
+    }
 
-        if(mm === "wmm"){ //not sure
-            tag = powerTwo(mmn) - fset - word;
+    else{
+        pfnarr = pmn.split(' ').map(Number);//to store in array
+        let inds = 0;
+        let word;
+        let fset;
+        let tag;
+        let addval;
+        let totb;
+        let s;
+        let addnum = []; //stores tag and set
+        let pfpairs = []; //to store value and its set
+
+        //to check if word or block
+        if (pf === "pfw"){
+            if(cm === "cmb"){
+                fset = Math.log2((cmn / set));
+            }
+            else if(cm === "cmw"){
+                fset = Math.log2(((cmn / block) / set));
+            }
+
+            word = Math.log2(block);
+
+            if(mm === "wmm"){ //not sure
+                tag = Math.log2(mmn) - fset - word;
+            }
+            else if(mm === "bmm"){
+                tag = Math.log2((mmn * block)) - fset - word;
+            }
+            addnum.push(tag);
+            addnum.push(fset);
+            totb = tag + fset + word;
+            
+            pfpairs = pfnarr.map(num => {
+                addval = convbin(num, totb);
+                s = getset(addval, addnum);
+                setNumber = parseInt(s, 2);
+                console.log(setNumber);
+                return [num, setNumber];
+            });
         }
-        else if(mm === "bmm"){
-            tag = powerTwo((mmn * block)) - fset - word;
+        else if (pf === "pfb"){
+            pfpairs = pfnarr.map(num => {
+                let setNumber = num % set;
+                return [num, setNumber];
+            });
         }
-        addnum.push(tag);
-        addnum.push(fset);
-        totb = tag + fset + word;
         
-        pfpairs = pfnarr.map(num => {
-            addval = convbin(num, totb);
-            s = getset(addval, addnum);
-            setNumber = parseInt(s, 2);
-            console.log(setNumber);
-            return [num, setNumber];
-        });
-    }
-    else if (pf === "pfb"){
-        pfpairs = pfnarr.map(num => {
-            let setNumber = num % set;
-            return [num, setNumber];
-        });
-    }
-    
-    let j;
-    let hit = 0;
-    let miss = 0;
-    let value;
-    let cache = Array.from({ length: set }, () => Array.from({ length: block }, () => null));
-    let lastind = Array(set).fill(-1);
+        let j;
+        let hit = 0;
+        let miss = 0;
+        let value;
+        let cache = Array.from({ length: set }, () => Array.from({ length: block }, () => null));
+        let lastind = Array(set).fill(-1);
 
-    pfpairs.forEach(function(pair){
-        value = pair[0]; //get val
-        inds = pair[1]; //get set    
-        for(j = 0; j < cache[inds].length; j++){ //j is block
-            if (cache[inds][j] === value){ //if value is found
-                lastind[inds] = j;
-                hit++;
-                console.log(lastind[inds]);
-                break;
+        pfpairs.forEach(function(pair){ //mru
+            value = pair[0]; //get val
+            inds = pair[1]; //get set    
+            for(j = 0; j < cache[inds].length; j++){ //j is block
+                if (cache[inds][j] === value){ //if value is found
+                    lastind[inds] = j;
+                    hit++;
+                    console.log(lastind[inds]);
+                    break;
+                }
+                else if(cache[inds][j] === null){  //if value is null (start)
+                    cache[inds][j] = value;
+                    lastind[inds] = j;
+                    miss++;
+                    console.log(lastind[inds]);
+                    break;
+                }
             }
-            else if(cache[inds][j] === null){  //if value is null (start)
-                cache[inds][j] = value;
-                lastind[inds] = j;
-                miss++;
-                console.log(lastind[inds]);
-                break;
+            
+                if (cache[inds].every(val => val != value)){ //if all have value, store in last index
+                    cache[inds][lastind[inds]] = value;
+                    miss++;
+                    console.log(lastind[inds]);
+                }
+        }); 
+
+        catn = 1;
+        matn = 10;
+
+        let missp = catn + (block * matn) + catn;
+        let avemmtime = (hit/pfnarr.length)*catn + (miss/pfnarr.length)*missp;
+        let totmmtime = (hit*block*catn) + (miss*block*(catn+matn)) + (miss*catn);
+
+        for (i = 0; i < set; i++){
+            for (j = 0; j < block; j++){
+                console.log(cache[i][j]);
             }
         }
-        
-            if (cache[inds].every(val => val != value)){ //if all have value, store in last index
-                cache[inds][lastind[inds]] = value;
-                miss++;
-                console.log(lastind[inds]);
-            }
-    }); 
+        console.log(hit);
+        console.log(miss);
+        console.log(missp);
+        console.log(avemmtime);
+        console.log(totmmtime);
 
-    catn = 1;
-    matn = 10;
-
-    let missp = catn + (block * matn) + catn;
-    let avemmtime = (hit/pfnarr.length)*catn + (miss/pfnarr.length)*missp;
-    let totmmtime = (hit*block*catn) + (miss*block*(catn+matn)) + (miss*catn);
-
-    for (i = 0; i < set; i++){
-        for (j = 0; j < block; j++){
-            console.log(cache[i][j]);
         }
-    }
-    console.log(hit);
-    console.log(miss);
-    console.log(missp);
-    console.log(avemmtime);
-    console.log(totmmtime);
 
-    //error checking with num inputs
     //check the memory size, cache memory calculations
-    //print output
+    //do smthn about the cache size (cuz u gotta follow dat)
+    //print output: hit, miss, missp, avemmtime, totmmtime, cache final look
     //export to txt
+}
+
+document.getElementById("clear").onclick = function(event){
+    event.preventDefault();
+    document.getElementById("block").value = '';
+    document.getElementById("set").value = '';
+    document.getElementById("mmn").value = '';
+    document.getElementById("cmn").value = '';
+    document.getElementById("pmn").value = '';
 }
