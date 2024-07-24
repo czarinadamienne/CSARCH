@@ -56,7 +56,9 @@ document.getElementById("sub").onclick = function(event){
     pf = document.getElementById("pf").value;
     
     function alertError(message) {
-        document.getElementById("error-message").innerText = message;
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.innerText = message;
+        errorMessage.classList.add("visible");
     }
 
     if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){

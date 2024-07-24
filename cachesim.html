@@ -1,81 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cache Simulator (Block-set-associative/MRU)</title>
-<link rel="stylesheet" href="cachesim.css">
-</head>
-<body>
-    
-<div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cache Simulator (Block-set-associative/MRU)</title>
+        <link rel="stylesheet" href="cachesim.css">
+    </head>
 
-    <div class="text">
-        <h1>Cache Simulator (Block-set-associative/MRU)</h1>
-    </div>
+    <body>  
+        <div class="text">
+            <h1>Cache Simulator (Block-set-associative/MRU)</h1>
+        </div>
+        <div class="container">
+            
 
-    <div id="error-message" style="color: red;"></div>
-    
-    <div class="input">
-        <label for="block">Block size (words): </label>
-        <input type="number" id="block" required>
-        <br>
-        <label for="set">Set size (blocks): </label>
-        <input type="number" id="set" required>
-        <br>
-        <label for="mm">MM memory size: </label>
-        <input type="number" id="mmn" required>
-        <select id="mm">
-            <option value="bmm">Block</option>
-            <option value="wmm">Word</option>
-        </select>
-        <br>
-        <label>Cache memory size: </label>
-        <input type="number" id="cmn" required>
-        <select id="cm">
-            <option value="cmb">Block</option>
-            <option value="cmw">Word</option>
-        </select>
-        <br>
-        <label>Program flow (add space between each number): </label>
-        <input type="text" id="pmn" required>
-        <select id="pf">
-            <option value="pfb">Block</option>
-            <option value="pfw">Word</option>
-        </select>
-        <br>
-        <input type="submit" value="Submit" id="sub">
-        <input type="button" value="Clear" id="clear">
-    </div>
+            <div class="content">
+                <div class="form-container">
+                    <div id="error-message" class="error-message-box"></div>
+                    <div class="input">
+                        <label for="block">Block size (words): </label>
+                        <input type="number" id="block" required>
+                        <br>
+                        <label for="set">Set size (blocks): </label>
+                        <input type="number" id="set" required>
+                        <br>
+                        <label for="mm">MM memory size: </label>
+                        <input type="number" id="mmn" required>
+                        <select id="mm">
+                            <option value="bmm">Block</option>
+                            <option value="wmm">Word</option>
+                        </select>
+                        <br>
+                        <label>Cache memory size: </label>
+                        <input type="number" id="cmn" required>
+                        <select id="cm">
+                            <option value="cmb">Block</option>
+                            <option value="cmw">Word</option>
+                        </select>
+                        <br>
+                        <label>Program flow (add space between each number): </label>
+                        <input type="text" id="pmn" required>
+                        <select id="pf">
+                            <option value="pfb">Block</option>
+                            <option value="pfw">Word</option>
+                        </select>
+                        <br>
+                        <div class="button-container">
+                            <input type="submit" value="Submit" id="sub" class="button">
+                            <input type="button" value="Clear" id="clear" class="clear-button">
+                        </div>
+                    </div></div>
+                
+                    <div class="results-container">
+                    <div class="output">
+                        <h2> Results: </h2>
+                        <p> Hits: <span id = "hits"></span></p>
+                        <p> Misses: <span id = "misses"></span></p>
+                        <p> Miss Penalty: <span id = "missp"></span></p>
+                        <p> Average Memory Access Time: <span id = "avemmtime"></span></p>
+                        <p> Total Memory Access Time: <span id = "totmmtime"></span></p>
+                        
+                        <p> Cache State: </p>
+                        <div class="table-container">
+                        <table id="cacheTable">
+                            <thead>
+                                <tr>
+                                    <th>Set</th>
+                                    <th>Block/s</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cacheBody"> 
+                            </tbody>
+                        </table>
+                        </div>
+                        <input type="submit" value="Print Output" id="print" class="print-button">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <footer class="footer">
+            <p>CSARCH2 S12 Simulation Project</p>
+            <p>Ang, Esteban, Herrera, Lim</p>
+        </footer>
 
-    <div class="output">
-        <h2> Results: </h2>
-        <p> Hits: <span id = "hits"></span></p>
-        <p> Misses: <span id = "misses"></span></p>
-        <p> Miss Penalty: <span id = "missp"></span></p>
-        <p> Average Memory Access Time: <span id = "avemmtime"></span></p>
-        <p> Total Memory Access Time: <span id = "totmmtime"></span></p>
-        
-        <p> Cache State: </p>
-        <table id="cacheTable">
-            <thead>
-                <tr>
-                    <th>Set</th>
-                    <th>Block/s</th>
-                </tr>
-            </thead>
-            <tbody id="cacheBody"> 
-            </tbody>
-        </table>
-
-        <input type="submit" value="Print Output" id="print">
-    </div>
-
-
-
-
-<script src="cachesim.js"></script>
-</body>
+        <script src="cachesim.js"></script>
+    </body>
 </html>

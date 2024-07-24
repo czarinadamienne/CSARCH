@@ -2,8 +2,8 @@
 
 #cacheTable {
     border-collapse: collapse; 
-    width: 50%;
-    margin-bottom: 30px;
+    width: 100%;
+    background-color: #eeeeee; 
 }
 
 #cacheTable th, #cacheTable td {
@@ -14,4 +14,172 @@
 
 #cacheTable th {
     background-color: #eeeeee; 
+}
+
+#cacheTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#cacheTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.text h1 {
+    text-align: center;
+    color: #444;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container {
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 50px 70px;
+    border-radius: 8px;
+}
+
+.results-container {
+    width: 68%;
+    background-color: #2a56be;
+    padding: 20px 40px;
+    border-radius: 0 8px 8px 0;
+}
+
+.error-message-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.error-message-box.visible {
+    display: block;
+}
+
+.input label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input input[type="number"],
+.input input[type="text"],
+.input select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.input .button {
+    width: 60%;
+    height: 40px;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #2a56be;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input .clear-button {
+    width: 60%;
+    height: 40px;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #2a56be;
+    border: 2px solid #2a56be;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input .button:hover {
+    background-color: rgb(13, 60, 110);
+}
+
+.input .clear-button:hover {
+    background-color: rgb(219, 219, 219);
+    border: 2px solid #1f4294;
+    color: #1f4294;
+}
+
+.output {
+    margin-top: 30px;
+}
+
+.output h2, .output p {
+    color: #f8f7f7;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.print-button {
+    width: 60%;
+    height: 40px;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #143277;
+    color: #fff;
+    border: 0px solid #143277;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.print-button:hover {
+    background-color: #0a2053;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #323233;
+    color: #f4f4f9;
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+}
+
+.footer p {
+    margin: 5px 0;
 }
