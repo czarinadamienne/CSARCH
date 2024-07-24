@@ -55,8 +55,12 @@ document.getElementById("sub").onclick = function(event){
     pmn = document.getElementById("pmn").value;
     pf = document.getElementById("pf").value;
     
+    function alertError(message) {
+        document.getElementById("error-message").innerText = message;
+    }
+
     if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){
-        alert("inputs should be a power of 2"); //make this appear on the front instead
+        alertError("Inputs should be a power of 2!"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -65,7 +69,7 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
-        alert("inputs should be greater than 0"); //make this appear on the front instead
+        alertError("Inputs should be greater than 0!"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -74,12 +78,13 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(cmn % set || cmn < set){
-        alert("cache size should be greater than and divisible by set size"); //make this appear on the front instead
+        alertError("Cache size should be greater than and divisible by set size!"); //make this appear on the front instead
         document.getElementById("set").value = '';
         document.getElementById("cmn").value = '';
         return;
     }
 
+    
     else{
         pfnarr = pmn.split(' ').map(Number);//to store in array
         let inds = 0;
@@ -117,7 +122,6 @@ document.getElementById("sub").onclick = function(event){
                 addval = convbin(num, totb);
                 s = getset(addval, addnum);
                 setNumber = parseInt(s, 2);
-                console.log(setNumber);
                 return [num, setNumber];
             });
         }
@@ -142,14 +146,12 @@ document.getElementById("sub").onclick = function(event){
                 if (cache[inds][j] === value){ //if value is found
                     lastind[inds] = j;
                     hit++;
-                    console.log(lastind[inds]);
                     break;
                 }
                 else if(cache[inds][j] === null){  //if value is null (start)
                     cache[inds][j] = value;
                     lastind[inds] = j;
                     miss++;
-                    console.log(lastind[inds]);
                     break;
                 }
             }
@@ -157,7 +159,6 @@ document.getElementById("sub").onclick = function(event){
                 if (cache[inds].every(val => val != value)){ //if all have value, store in last index
                     cache[inds][lastind[inds]] = value;
                     miss++;
-                    console.log(lastind[inds]);
                 }
         }); 
 
@@ -168,24 +169,84 @@ document.getElementById("sub").onclick = function(event){
         let avemmtime = (hit/pfnarr.length)*catn + (miss/pfnarr.length)*missp;
         let totmmtime = (hit*block*catn) + (miss*block*(catn+matn)) + (miss*catn);
 
-        for (i = 0; i < set; i++){
-            for (j = 0; j < block; j++){
-                console.log(cache[i][j]);
-            }
-        }
-        console.log(hit);
-        console.log(miss);
-        console.log(missp);
-        console.log(avemmtime);
-        console.log(totmmtime);
+        document.getElementById("hits").textContent = hit;
+        document.getElementById("misses").textContent = miss;
+        document.getElementById("missp").textContent = missp;
+        document.getElementById("avemmtime").textContent = avemmtime;
+        document.getElementById("totmmtime").textContent = totmmtime;
 
+        function populateTable(cache) {
+            const tableBody = document.getElementById("cacheBody");
+            tableBody.innerHTML = "";
+        
+            const blockNumbers = cache[0].length; 
+        
+            const header = document.createElement("tr");
+            header.innerHTML = `<th>Set</th>${Array.from({ length: blockNumbers }, (_, i) => `<th>Block ${i + 1}</th>`).join("")}`;
+            const tableHead = document.querySelector("#cacheTable thead");
+            tableHead.innerHTML = "";
+            tableHead.appendChild(header);
+        
+            cache.forEach((set, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${index}</td>${set.map(block => `<td>${block !== null ? block : ''}</td>`).join("")}`;
+                tableBody.appendChild(row);
+            });
         }
+        
+    
+        populateTable(cache); //to display table values
+
+    };
 
     //check the memory size, cache memory calculations
     //do smthn about the cache size (cuz u gotta follow dat)
-    //print output: hit, miss, missp, avemmtime, totmmtime, cache final look
-    //export to txt
+
+    document.getElementById("error-message").innerText = '';
+
+    
+};
+
+function downloadText() {
+    const hits = document.getElementById("hits").textContent;
+    const misses = document.getElementById("misses").textContent;
+    const missp = document.getElementById("missp").textContent;
+    const avemmtime = document.getElementById("avemmtime").textContent;
+    const totmmtime = document.getElementById("totmmtime").textContent;
+
+    let text = `Results:\n\n`;
+    text += `Hits: ${hits}\n`;
+    text += `Misses: ${misses}\n`;
+    text += `Miss Penalty: ${missp}\n`;
+    text += `Average Memory Access Time: ${avemmtime}\n`;
+    text += `Total Memory Access Time: ${totmmtime}\n\n`;
+
+    text += `Cache State:\n`;
+    const table = document.getElementById("cacheTable");
+    const rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        cells.forEach((cell, index) => {
+            text += (index > 0 ? ' ' : '') + cell.textContent;
+        });
+        text += '\n';
+    });
+
+    return text;
 }
+
+document.getElementById("print").addEventListener("click", function() {
+    const textContent = downloadText();
+    const blob = new Blob([textContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "cachesimresult.txt";
+    a.click();
+    
+    URL.revokeObjectURL(url);
+});
 
 document.getElementById("clear").onclick = function(event){
     event.preventDefault();
