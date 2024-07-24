@@ -55,8 +55,12 @@ document.getElementById("sub").onclick = function(event){
     pmn = document.getElementById("pmn").value;
     pf = document.getElementById("pf").value;
     
+    function alertError(message) {
+        document.getElementById("error-message").innerText = message;
+    }
+
     if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){
-        alert("inputs should be a power of 2"); //make this appear on the front instead
+        alertError("Inputs should be a power of 2!"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -65,7 +69,7 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
-        alert("inputs should be greater than 0"); //make this appear on the front instead
+        alertError("Inputs should be greater than 0!"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -74,12 +78,13 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(cmn % set || cmn < set){
-        alert("cache size should be greater than and divisible by set size"); //make this appear on the front instead
+        alertError("Cache size should be greater than and divisible by set size!"); //make this appear on the front instead
         document.getElementById("set").value = '';
         document.getElementById("cmn").value = '';
         return;
     }
 
+    
     else{
         pfnarr = pmn.split(' ').map(Number);//to store in array
         let inds = 0;
@@ -214,6 +219,10 @@ document.getElementById("sub").onclick = function(event){
     //do smthn about the cache size (cuz u gotta follow dat)
     //print output: hit, miss, missp, avemmtime, totmmtime, cache final look
     //export to txt
+
+    document.getElementById("error-message").innerText = '';
+
+    
 };
 
 function downloadText() {
