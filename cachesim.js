@@ -59,7 +59,6 @@ document.getElementById("sub").onclick = function(event){
     cm = document.getElementById("cm").value; 
     pmn = document.getElementById("pmn").value;
     pf = document.getElementById("pf").value;
-    catn = 1;
     
     pfnarr = pmn.split(' ').map(Number);//to store in array
     let inds = 0;
@@ -69,8 +68,8 @@ document.getElementById("sub").onclick = function(event){
     let addval;
     let totb;
     let s;
-    let addnum = [];
-    let pfpairs = [];
+    let addnum = []; //stores tag and set
+    let pfpairs = []; //to store value and its set
 
     //to check if word or block
     if (pf === "pfw"){
@@ -141,9 +140,10 @@ document.getElementById("sub").onclick = function(event){
             }
     }); 
 
-    matn = parseFloat(document.getElementById("matn").value);
+    catn = 1;
+    matn = 10;
 
-    let missp = catn + (block * matn) + catn; //idk if cache access time or just 1
+    let missp = catn + (block * matn) + catn;
     let avemmtime = (hit/pfnarr.length)*catn + (miss/pfnarr.length)*missp;
     let totmmtime = (hit*block*catn) + (miss*block*(catn+matn)) + (miss*catn);
 
