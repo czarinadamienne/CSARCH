@@ -1,0 +1,17 @@
+/* temporary design for table */
+
+#cacheTable {
+    border-collapse: collapse; 
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+#cacheTable th, #cacheTable td {
+    border: 1px solid black;
+    padding: 8px; 
+    text-align: center;
+}
+
+#cacheTable th {
+    background-color: #eeeeee; 
+}

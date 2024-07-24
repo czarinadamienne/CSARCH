@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cache Simulator (Block-set-associative/MRU)</title>
-<!-- <link rel="stylesheet" href="cachesim.css">  -->
+<link rel="stylesheet" href="cachesim.css">
 </head>
 <body>
     
@@ -47,6 +47,33 @@
     </div>
 
 </div>
+
+    <div class="output">
+        <h2> Results: </h2>
+        <p> Hits: <span id = "hits"></span></p>
+        <p> Misses: <span id = "misses"></span></p>
+        <p> Miss Penalty: <span id = "missp"></span></p>
+        <p> Average Memory Access Time: <span id = "avemmtime"></span></p>
+        <p> Total Memory Access Time: <span id = "totmmtime"></span></p>
+        
+        <p> Cache State: </p>
+        <table id="cacheTable">
+            <thead>
+                <tr>
+                    <th>Set</th>
+                    <th>Block/s</th>
+                </tr>
+            </thead>
+            <tbody id="cacheBody"> 
+            </tbody>
+        </table>
+
+        <input type="submit" value="Print Output" id="print">
+    </div>
+
+
+
+
 <script src="cachesim.js"></script>
 </body>
 </html>

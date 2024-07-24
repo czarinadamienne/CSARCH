@@ -178,14 +178,84 @@ document.getElementById("sub").onclick = function(event){
         console.log(missp);
         console.log(avemmtime);
         console.log(totmmtime);
+        console.log(cache);
 
+        document.getElementById("hits").textContent = hit;
+        document.getElementById("misses").textContent = miss;
+        document.getElementById("missp").textContent = missp;
+        document.getElementById("avemmtime").textContent = avemmtime;
+        document.getElementById("totmmtime").textContent = totmmtime;
+
+        function populateTable(cache) {
+            const tableBody = document.getElementById("cacheBody");
+            tableBody.innerHTML = "";
+        
+            const blockNumbers = cache[0].length; 
+        
+            const header = document.createElement("tr");
+            header.innerHTML = `<th>Set</th>${Array.from({ length: blockNumbers }, (_, i) => `<th>Block ${i + 1}</th>`).join("")}`;
+            const tableHead = document.querySelector("#cacheTable thead");
+            tableHead.innerHTML = "";
+            tableHead.appendChild(header);
+        
+            cache.forEach((set, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${index}</td>${set.map(block => `<td>${block !== null ? block : ''}</td>`).join("")}`;
+                tableBody.appendChild(row);
+            });
         }
+        
+    
+        populateTable(cache); //to display table values
+
+    };
 
     //check the memory size, cache memory calculations
     //do smthn about the cache size (cuz u gotta follow dat)
     //print output: hit, miss, missp, avemmtime, totmmtime, cache final look
     //export to txt
+};
+
+function downloadText() {
+    const hits = document.getElementById("hits").textContent;
+    const misses = document.getElementById("misses").textContent;
+    const missp = document.getElementById("missp").textContent;
+    const avemmtime = document.getElementById("avemmtime").textContent;
+    const totmmtime = document.getElementById("totmmtime").textContent;
+
+    let text = `Results:\n\n`;
+    text += `Hits: ${hits}\n`;
+    text += `Misses: ${misses}\n`;
+    text += `Miss Penalty: ${missp}\n`;
+    text += `Average Memory Access Time: ${avemmtime}\n`;
+    text += `Total Memory Access Time: ${totmmtime}\n\n`;
+
+    text += `Cache State:\n`;
+    const table = document.getElementById("cacheTable");
+    const rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        cells.forEach((cell, index) => {
+            text += (index > 0 ? ' ' : '') + cell.textContent;
+        });
+        text += '\n';
+    });
+
+    return text;
 }
+
+document.getElementById("print").addEventListener("click", function() {
+    const textContent = downloadText();
+    const blob = new Blob([textContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "edit_this_file_name_nalang.txt"; // <--- EDIT THIS
+    a.click();
+    
+    URL.revokeObjectURL(url);
+});
 
 document.getElementById("clear").onclick = function(event){
     event.preventDefault();
