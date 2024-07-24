@@ -15,3 +15,118 @@
 #cacheTable th {
     background-color: #eeeeee; 
 }
+
+#cacheTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#cacheTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.text h1 {
+    text-align: center;
+    color: #444;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input, .output {
+    width: 48%;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.input label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input input[type="number"],
+.input input[type="text"],
+.input select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input .button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.input .button:hover {
+    background-color: #0056b3;
+}
+
+.output {
+    margin-top: 30px;
+}
+
+.output h2 {
+    color: #444;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #323233;
+    color: #f4f4f9;
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+}
+
+.footer p {
+    margin: 5px 0;
+}
