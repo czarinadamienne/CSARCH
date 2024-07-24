@@ -56,7 +56,7 @@ document.getElementById("sub").onclick = function(event){
     pf = document.getElementById("pf").value;
     
     if(!pow2(block) || !pow2(set) || !pow2(mmn) || !pow2(cmn)){
-        alert("inputs should be a power of 2");
+        alert("inputs should be a power of 2"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -65,7 +65,7 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(block <= 0 || set <= 0 || mmn <= 0 || cmn <= 0){
-        alert("inputs should be greater than 0");
+        alert("inputs should be greater than 0"); //make this appear on the front instead
         document.getElementById("block").value = '';
         document.getElementById("set").value = '';
         document.getElementById("mmn").value = '';
@@ -74,7 +74,7 @@ document.getElementById("sub").onclick = function(event){
     }
 
     else if(cmn % set || cmn < set){
-        alert("cache size should be greater than and divisible by set size");
+        alert("cache size should be greater than and divisible by set size"); //make this appear on the front instead
         document.getElementById("set").value = '';
         document.getElementById("cmn").value = '';
         return;
