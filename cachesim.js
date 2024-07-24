@@ -94,13 +94,15 @@ document.getElementById("sub").onclick = function(event){
             alertError("Program flow value should be less than or equal to the MM memory size!");
             document.getElementById("pmn").value = '';
             pfnarr = [];
+            btest = 0;
             return;
         }
     }
 
+    document.getElementById("print").disabled = false;
         let inds = 0;
         let word;
-        let fset;
+        let fset;   
         let tag;
         let addval;
         let totb;
@@ -266,4 +268,31 @@ document.getElementById("clear").onclick = function(event){
     document.getElementById("mmn").value = '';
     document.getElementById("cmn").value = '';
     document.getElementById("pmn").value = '';
+    block = 0;
+    set = 0;
+    mmn = 0;
+    cmn = 0;
+    pmn = 0;
+    pfnarr = [];
+    addnum = [];
+    pfpairs = [];
+    inds = 0;
+    hit = 0;
+    miss = 0;
+    value = 0;
+    document.getElementById("hits").textContent = '';
+    document.getElementById("misses").textContent = '';
+    document.getElementById("missp").textContent = '';
+    document.getElementById("avemmtime").textContent = '';
+    document.getElementById("totmmtime").textContent = '';
+    const tableBody = document.getElementById("cacheBody");
+    const tableHead = document.querySelector("#cacheTable thead");
+
+    tableBody.innerHTML = "";
+    tableHead.innerHTML = `
+        <tr>
+            <th>Set</th>
+            <th>Block/s</th>
+        </tr>`;
+    document.getElementById("print").disabled = true;
 }
