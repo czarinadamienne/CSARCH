@@ -52,6 +52,7 @@ body {
 
 .form-container {
     width: 40%;
+    min-width: 300px;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 50px 70px;
     border-radius: 8px;
@@ -59,6 +60,7 @@ body {
 
 .results-container {
     width: 68%;
+    min-width: 500px;
     background-color: #2a56be;
     padding: 20px 40px;
     border-radius: 0 8px 8px 0;
