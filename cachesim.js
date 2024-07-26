@@ -311,14 +311,25 @@ document.getElementById("clear").onclick = function(event){
     document.getElementById("missp").textContent = '';
     document.getElementById("avemmtime").textContent = '';
     document.getElementById("totmmtime").textContent = '';
-    const tableBody = document.getElementById("cacheBody");
-    const tableHead = document.querySelector("#cacheTable thead");
-
-    tableBody.innerHTML = "";
-    tableHead.innerHTML = `
-        <tr>
-            <th>Set</th>
-            <th>Block/s</th>
-        </tr>`;
     document.getElementById("print").disabled = true;
+
+    const defaultRow = `
+        <tr>
+                            <th>Set</th>
+                            <th>Block 1</th>
+                            <th>Block 2</th>
+                            <th>Block 3</th>
+                            <th>Block 4</th>
+                        </tr>
+    `;
+
+    const defaultBod = `
+        <tr><td>0</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+    `;
+    document.getElementById('head').innerHTML = defaultRow;
+    document.getElementById('cacheBody').innerHTML = defaultBod;
 }
