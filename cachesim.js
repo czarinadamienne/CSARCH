@@ -29,6 +29,17 @@ function getset(bin, addnum){ //get the set from address
     return s;
 }
 
+function gettag(bin, tag){ //get the tag from address
+    let first = 0;
+    let tt = '';
+
+        let last = first + tag;
+        tt = bin.slice(first, last);
+        first = last;
+
+    return tt;
+}
+
 let block; //block size
 let set; //set size per block
 let mmn; //memory size value
@@ -115,49 +126,55 @@ document.getElementById("sub").onclick = function(event){
             set = cmn / set;
         }
 
+        if(cm === "cmb"){
+            numset = cmn / set;
+            fset = Math.log2((cmn / set));
+        }
+        else if(cm === "cmw"){
+            numset = cmn / block;
+            fset = Math.log2(((cmn / block) / set));
+        }
+
+        word = Math.log2(block);
+
+        if(mm === "wmm"){
+            tag = Math.log2(mmn) - fset - word;
+        }
+        else if(mm === "bmm"){ 
+            tag = Math.log2((mmn * block)) - fset - word;
+        }
+        addnum.push(tag);
+        addnum.push(fset);
+        console.log(tag);
+        console.log(fset);
+        console.log(word);
+        totb = tag + fset + word;
+
         //to check if word or block
         if (pf === "pfw"){
-            if(cm === "cmb"){
-                numset = cmn / set;
-                fset = Math.log2((cmn / set));
-            }
-            else if(cm === "cmw"){
-                numset = cmn / block;
-                fset = Math.log2(((cmn / block) / set));
-            }
-
-            word = Math.log2(block);
-
-            if(mm === "wmm"){
-                tag = Math.log2(mmn) - fset - word;
-            }
-            else if(mm === "bmm"){ 
-                tag = Math.log2((mmn * block)) - fset - word;
-            }
-            addnum.push(tag);
-            addnum.push(fset);
-            totb = tag + fset + word;
-            
             pfpairs = pfnarr.map(num => {
                 addval = convbin(num, totb);
                 s = getset(addval, addnum);
                 setNumber = parseInt(s, 2);
-                return [num, setNumber];
+                t = gettag(addval, tag);
+                return [num, setNumber, t];
             });
         }
         else if (pf === "pfb"){
             numset = cmn / set;
             pfpairs = pfnarr.map(num => {
+                addval = convbin(num, totb);
                 let setNumber = num % set;
-                return [num, setNumber];
+                t = gettag(addval, tag);
+                return [num, setNumber, t];
             });
         }
 
-        console.log(numset);
         let j;
         let hit = 0;
         let miss = 0;
         let value;
+        let tagval;
         //stores the value computed value
         let cache = Array.from({ length: set }, () => Array.from({ length: numset }, () => null));
         let lastind = Array(set).fill(-1); //stores the last index used
@@ -165,6 +182,7 @@ document.getElementById("sub").onclick = function(event){
         pfpairs.forEach(function(pair){ //mru
             value = pair[0]; //get val
             inds = pair[1]; //get set    
+            tagval = pair[2]; //get tag
             for(j = 0; j < cache[inds].length; j++){ //j is block
                 if (cache[inds][j] === value){ //if value is found
                     lastind[inds] = j;
