@@ -220,10 +220,12 @@ document.getElementById("sub").onclick = function(event){
     
         populateTable(cache); //to display table values
 
-    document.getElementById("error-message").innerText = '';
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.innerText = '';
+    errorMessage.classList.remove("visible");
 
-    
 };
+
 
 function downloadText() {
     const hits = document.getElementById("hits").textContent;
