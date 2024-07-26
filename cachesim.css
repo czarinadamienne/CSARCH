@@ -6,7 +6,7 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #dddddd;
     color: #333;
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ body {
 }
 
 .form-container {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(245, 245, 245, 0.9);
     padding: 40px 40px 20px 40px;
     border-radius: 10px 10px 0 0;
     box-sizing: border-box;
@@ -61,7 +61,7 @@ body {
 }
 
 .results-container {
-    background-color: rgba(238, 238, 238, 0.9);
+    background-color: rgba(236, 236, 236, 0.9);
     padding: 20px 40px 40px 40px;
     border-radius: 0 0 10px 10px;
     box-sizing: border-box;
