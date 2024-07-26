@@ -30,7 +30,7 @@ function getset(bin, addnum){ //get the set from address
 }
 
 let block; //block size
-let set; //set size
+let set; //set size per block
 let mmn; //memory size value
 let mm; //memory type (if block/word)
 let cmn; //cache memory size value
@@ -100,6 +100,7 @@ document.getElementById("sub").onclick = function(event){
     }
 
     document.getElementById("print").disabled = false;
+        let numset; //total sets
         let inds = 0;
         let word;
         let fset;   
@@ -117,9 +118,11 @@ document.getElementById("sub").onclick = function(event){
         //to check if word or block
         if (pf === "pfw"){
             if(cm === "cmb"){
+                numset = cmn / set;
                 fset = Math.log2((cmn / set));
             }
             else if(cm === "cmw"){
+                numset = cmn / block;
                 fset = Math.log2(((cmn / block) / set));
             }
 
@@ -143,19 +146,21 @@ document.getElementById("sub").onclick = function(event){
             });
         }
         else if (pf === "pfb"){
+            numset = cmn / set;
             pfpairs = pfnarr.map(num => {
                 let setNumber = num % set;
                 return [num, setNumber];
             });
         }
-        
-        
+
+        console.log(numset);
         let j;
         let hit = 0;
         let miss = 0;
         let value;
-        let cache = Array.from({ length: set }, () => Array.from({ length: block }, () => null));
-        let lastind = Array(set).fill(-1);
+        //stores the value computed value
+        let cache = Array.from({ length: set }, () => Array.from({ length: numset }, () => null));
+        let lastind = Array(set).fill(-1); //stores the last index used
 
         pfpairs.forEach(function(pair){ //mru
             value = pair[0]; //get val
@@ -280,6 +285,7 @@ document.getElementById("clear").onclick = function(event){
     hit = 0;
     miss = 0;
     value = 0;
+    numset = 0;
     document.getElementById("hits").textContent = '';
     document.getElementById("misses").textContent = '';
     document.getElementById("missp").textContent = '';
