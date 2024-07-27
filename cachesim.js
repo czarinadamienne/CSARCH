@@ -122,13 +122,11 @@ document.getElementById("sub").onclick = function(event){
         let addnum = []; //stores tag and set
         let pfpairs = []; //to store value and its set
 
-        if(block * set !== cmn){
-            set = cmn / set;
-        }
-
         if(cm === "cmb"){
             numset = cmn / set;
             fset = Math.log2((cmn / set));
+            console.log(set);
+            console.log(fset);
         }
         else if(cm === "cmw"){
             numset = cmn / block;
@@ -164,7 +162,7 @@ document.getElementById("sub").onclick = function(event){
             numset = cmn / set;
             pfpairs = pfnarr.map(num => {
                 addval = convbin(num, totb);
-                let setNumber = num % set;
+                let setNumber = num % numset;
                 t = gettag(addval, tag);
                 return [num, setNumber, t];
             });
@@ -176,8 +174,8 @@ document.getElementById("sub").onclick = function(event){
         let value;
         let tagval;
         //stores the value computed value
-        let cache = Array.from({ length: set }, () => Array.from({ length: numset }, () => null));
-        let lastind = Array(set).fill(-1); //stores the last index used
+        let cache = Array.from({ length: numset }, () => Array.from({ length: set }, () => null));
+        let lastind = Array(numset).fill(-1); //stores the last index used
 
         pfpairs.forEach(function(pair){ //mru
             value = pair[0]; //get val
@@ -293,6 +291,9 @@ document.getElementById("clear").onclick = function(event){
     document.getElementById("mmn").value = '';
     document.getElementById("cmn").value = '';
     document.getElementById("pmn").value = '';
+    document.getElementById("mm").value = "bmm";
+    document.getElementById("cm").value = "cmb";
+    document.getElementById("pf").value = "pfb";
     block = 0;
     set = 0;
     mmn = 0;
