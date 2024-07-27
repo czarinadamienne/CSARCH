@@ -125,8 +125,6 @@ document.getElementById("sub").onclick = function(event){
         if(cm === "cmb"){
             numset = cmn / set;
             fset = Math.log2((cmn / set));
-            console.log(set);
-            console.log(fset);
         }
         else if(cm === "cmw"){
             numset = cmn / block;
@@ -143,9 +141,6 @@ document.getElementById("sub").onclick = function(event){
         }
         addnum.push(tag);
         addnum.push(fset);
-        console.log(tag);
-        console.log(fset);
-        console.log(word);
         totb = tag + fset + word;
 
         //to check if word or block
@@ -181,6 +176,7 @@ document.getElementById("sub").onclick = function(event){
             value = pair[0]; //get val
             inds = pair[1]; //get set    
             tagval = pair[2]; //get tag
+            
             for(j = 0; j < cache[inds].length; j++){ //j is block
                 if (cache[inds][j] === value){ //if value is found
                     lastind[inds] = j;
