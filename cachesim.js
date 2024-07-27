@@ -240,7 +240,6 @@ document.getElementById("sub").onclick = function(event){
 
 };
 
-
 function downloadText() {
     const hits = document.getElementById("hits").textContent;
     const misses = document.getElementById("misses").textContent;
@@ -255,15 +254,38 @@ function downloadText() {
     text += `Average Memory Access Time: ${avemmtime}\n`;
     text += `Total Memory Access Time: ${totmmtime}\n\n`;
 
-    text += `Cache State:\n`;
+    text += `Cache State:\n\n`;
+
     const table = document.getElementById("cacheTable");
+    const headers = table.querySelectorAll("thead th");
+
+    let headerText = '';
+    const colWidths = [6, 10, 10, 10, 10];
+    headers.forEach((header, index) => {
+        const headerContent = header.textContent.trim();
+        if (index === 0) {
+            headerText += headerContent.padEnd(colWidths[index] + 3);
+        } else {
+            headerText += headerContent.padEnd(colWidths[index]);
+        }
+    });
+    text += headerText + '\n'; //header row
+    text += '-'.repeat(headerText.length) + '\n'; // line separator
+
     const rows = table.querySelectorAll("tbody tr");
-    rows.forEach(row => {
+    rows.forEach((row) => {
         const cells = row.querySelectorAll("td");
-        cells.forEach((cell, index) => {
-            text += (index > 0 ? ' ' : '') + cell.textContent;
+        let rowText = '';
+        cells.forEach((cell, cellIndex) => {
+            let cellContent = cell.textContent.trim() === '' ? '---' : cell.textContent;
+            if (cellIndex === 0) {
+                rowText += cellContent.padEnd(colWidths[cellIndex]) + '| ';
+            } else {
+                const padding = (colWidths[cellIndex] - cellContent.length) / 2;
+                rowText += cellContent.padStart(Math.floor(padding) + cellContent.length).padEnd(colWidths[cellIndex]);
+            }
         });
-        text += '\n';
+        text += rowText.trim() + '\n'; // row content
     });
 
     return text;
@@ -273,12 +295,12 @@ document.getElementById("print").addEventListener("click", function() {
     const textContent = downloadText();
     const blob = new Blob([textContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    
+
     const a = document.createElement("a");
     a.href = url;
-    a.download = "cachesimresult.txt";
-    a.click();
-    
+    a.download = "cachesimresult.txt";  // name of the file
+    a.click();  
+
     URL.revokeObjectURL(url);
 });
 
