@@ -139,12 +139,13 @@ document.getElementById("sub").onclick = function(event){
         else if(mm === "bmm"){ 
             tag = Math.log2((mmn * block)) - fset - word;
         }
+        
         addnum.push(tag);
         addnum.push(fset);
-        totb = tag + fset + word;
 
         //to check if word or block
         if (pf === "pfw"){
+            totb = tag + fset + word;
             pfpairs = pfnarr.map(num => {
                 addval = convbin(num, totb);
                 s = getset(addval, addnum);
@@ -155,6 +156,7 @@ document.getElementById("sub").onclick = function(event){
         }
         else if (pf === "pfb"){
             numset = cmn / set;
+            totb = tag + fset;
             pfpairs = pfnarr.map(num => {
                 addval = convbin(num, totb);
                 let setNumber = num % numset;
