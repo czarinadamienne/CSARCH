@@ -20,6 +20,8 @@ git clone https://github.com/czarinadamienne/CSARCH.git
  
 3. Open the cachesim.html file in your web browser to start the simulator.
 
+Alternatively, you can visit the deployed web app at [this site](https://cachesimbsamru.onrender.com/).
+
 ## Project Structure
 - cachesim.html: The main HTML file containing the structure of the simulator.
 - cachesim.css: The CSS file for styling the simulator.
@@ -44,12 +46,11 @@ git clone https://github.com/czarinadamienne/CSARCH.git
 ### Notes
 - Ensure that all input values are powers of 2 and greater than 0.
 - The cache size should be greater than and divisible by the set size.
-- Program flow values should be less than or equal to the main memory size.
-
-## Screenshots
+- Program flow values should be less than or equal to the main memory size.    
 
 
+<br>
 
 
 
-This project was developed by Ang, Esteban, Herrera, and Lim as part of the CSARCH2 S12 Simulation Project.
+*This project was developed by Ang, Esteban, Herrera, and Lim as part of the CSARCH2 S12 Simulation Project.*
