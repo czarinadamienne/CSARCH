@@ -22,6 +22,9 @@ git clone https://github.com/czarinadamienne/CSARCH.git
 
 Alternatively, you can visit the deployed web app at [this site](https://cachesimbsamru.onrender.com/).
 
+### Video Demonstration 
+A video demonstration of the simulator can be accessed [here](https://drive.google.com/file/d/1jNYiw70G7O7EEFwVLZn6ra77YMlvuCt0/view?usp=sharing) with a De La Salle University account.
+
 ## Project Structure
 - cachesim.html: The main HTML file containing the structure of the simulator.
 - cachesim.css: The CSS file for styling the simulator.
