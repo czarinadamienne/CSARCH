@@ -9,6 +9,16 @@ This project is a web-based cache simulator that implements a block-set-associat
 - Option to export results to a text file
 - Clear and reset input fields and results
 
+## Video Demonstration 
+A video demonstration of the simulator can be accessed [here](https://drive.google.com/file/d/1jNYiw70G7O7EEFwVLZn6ra77YMlvuCt0/view?usp=sharing) with a De La Salle University account.
+
+## Screenshots
+Here are some screenshots of the simulator in action:
+![Screenshot 1](./screenshots/screenshot1.jpg)
+![Screenshot 2](./screenshots/screenshot2.jpg)
+![Screenshot 3](./screenshots/screenshot3.jpg)
+
+
 ## Installation
 To run this project locally, follow these steps:
 
@@ -21,9 +31,6 @@ git clone https://github.com/czarinadamienne/CSARCH.git
 3. Open the cachesim.html file in your web browser to start the simulator.
 
 Alternatively, you can visit the deployed web app at [this site](https://cachesimbsamru.onrender.com/).
-
-### Video Demonstration 
-A video demonstration of the simulator can be accessed [here](https://drive.google.com/file/d/1jNYiw70G7O7EEFwVLZn6ra77YMlvuCt0/view?usp=sharing) with a De La Salle University account.
 
 ## Project Structure
 - cachesim.html: The main HTML file containing the structure of the simulator.
