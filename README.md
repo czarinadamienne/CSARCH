@@ -1,4 +1,4 @@
-# Cache Simulator (Block-set-associative / MRU) - README
+# Cache Simulator (Block-set-associative / MRU)
 This project is a web-based cache simulator that implements a block-set-associative cache with Most Recently Used (MRU) replacement policy. The simulator is designed to help understand how cache memory works and to visualize the behavior of a cache under different scenarios.
 
 ## Features
@@ -32,7 +32,7 @@ git clone https://github.com/czarinadamienne/CSARCH.git
 Alternatively, you can visit the deployed web app at [this site](https://cachesimbsamru.onrender.com/).
 
 ## Project Structure
-- cachesim.html: The main HTML file containing the structure of the simulator.
+- index.html: The main HTML file containing the structure of the simulator.
 - cachesim.css: The CSS file for styling the simulator.
 - cachesim.js: The JavaScript file containing the logic for the cache simulation.
 
@@ -51,15 +51,13 @@ Alternatively, you can visit the deployed web app at [this site](https://cachesi
 - Average Memory Access Time: The average time to access memory.
 - Total Memory Access Time: The total time to access memory during the simulation.
 - Cache State: A snapshot of the cache memory showing the contents of each set and block.
+- Report: The option to print the results to a text file for reporting purposes.
 
 ### Notes
 - Ensure that all input values are powers of 2 and greater than 0.
 - The cache size should be greater than and divisible by the set size.
 - Program flow values should be less than or equal to the main memory size.    
 
-
 <br>
-
-
 
 *This project was developed by Ang, Esteban, Herrera, and Lim as part of the CSARCH2 S12 Simulation Project.*
