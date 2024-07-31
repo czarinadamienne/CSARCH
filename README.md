@@ -18,7 +18,6 @@ Here are some screenshots of the simulator in action:
 ![Screenshot 2](./screenshots/screenshot2.jpg)
 ![Screenshot 3](./screenshots/screenshot3.jpg)
 
-
 ## Installation
 To run this project locally, follow these steps:
 
